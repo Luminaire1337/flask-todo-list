@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Update to-do{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-2 text-center"><i class="bi-pen-fill"></i> Update to-do</h1>
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group">
+            <a href="{{ url_for('index.index') }}" class="btn btn-success btn-sm"><i class="bi-arrow-90deg-left"></i> Go
+                back to home</a>
+        </div>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-danger text-center" role="alert"><i class="bi-exclamation-triangle-fill"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="todo-name">Name</label>
+            <input name="todo-name" id="todo-name" type="text" class="form-control" placeholder="Enter to-do name"
+                value="{{ row['text'] }}" required>
+        </div>
+        <div class="form-check">
+            <input name="todo-state" id="todo-state" type="checkbox" class="form-check-input" {{ "checked" if
+                row['state']==1 }}>
+            <label class="form-check-label" for="todo-state">State</label>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            <button class="btn btn-primary" type="submit"><i class="bi-pen-fill "></i> Modify to-do</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
