@@ -1,9 +1,12 @@
+from typing import Optional
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from werkzeug.wrappers import Response
 from app.models import ToDo, Action
 
 blueprint = Blueprint("todo", __name__, url_prefix="/todo")
 
-def verify_todo_name(todo_name: any) -> None | str:
+def verify_todo_name(todo_name: Optional[str]) -> Optional[str]:
+    """Validate the to-do name and return an error message if invalid."""
     if not todo_name:
         return "Missing to-do name"
     elif len(todo_name) > 255:
@@ -56,7 +59,7 @@ def update(id: int):
 
 @blueprint.get('/delete/<int:id>')
 def delete(id: int):
-    def rollback(message: str) -> redirect:
+    def rollback(message: str) -> Response:
         flash(message)
         return redirect(url_for("index.index"))
 

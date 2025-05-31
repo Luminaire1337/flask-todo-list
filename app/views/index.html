@@ -1,24 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div class="container">
-    <h1 class="mt-5 mb-2 text-center"><i class="bi-clipboard-check"></i> To Do List</h1>
-    <div class="d-flex justify-content-center mb-4">
-        <div class="btn-group">
-            <a href="{{ url_for('todo.index') }}" class="btn btn-success btn-sm"><i class="bi-clipboard-plus-fill"></i>
-                Create new to-do</a>
-            <a href="{{ url_for('index.export') }}" class="btn btn-dark btn-sm"><i class="bi-share-fill"></i> Export
-                list to CSV</a>
-        </div>
-    </div>
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info text-center" role="alert"><i class="bi-info-circle-fill"></i> {{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+<h2 class="mb-4">Your Tasks</h2>
 
     {% if entries|length == 0 %}
     <h1 class="text-center">No entries found <i class="bi-emoji-tear-fill"></i></h1>
