@@ -5,7 +5,12 @@
   <p class="lead">{{ error_message }}</p>
   <div class="mt-4">
     <a href="{{ url_for('index.index') }}" class="btn btn-primary">
-      <i class="bi bi-house-fill"></i> Go Home
+      <img
+        src="{{ url_for('static', filename='icons/home.svg') }}"
+        class="icon"
+        alt="Home"
+      />
+      Go Home
     </a>
   </div>
 </div>

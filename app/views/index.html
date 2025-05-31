@@ -1,44 +1,53 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<h2 class="mb-4">Your Tasks</h2>
+<h2 class="mb-4">
+    <img src="{{ url_for('static', filename='icons/list.svg') }}" class="icon" alt="List"> Your Tasks
+</h2>
 
     {% if entries|length == 0 %}
-    <h1 class="text-center">No entries found <i class="bi-emoji-tear-fill"></i></h1>
+    <h1 class="text-center">No entries found</h1>
     {% else %}
-    <table class="table justify-content-center text-center">
+    <table class="table">
         <thead>
             <tr>
-                <th scope="col"><i class="bi-hash"></i></th>
-                <th scope="col"><i class="bi-type"></i></th>
-                <th scope="col"><i class="bi-database-fill-check"></i></th>
-                <th scope="col"><i class="bi-alarm"></i></th>
-                <th scope="col"><i class="bi-hammer"></i></th>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for entry in entries %}
             <tr>
                 <th scope="row">{{ entry["id"] }}</th>
-                <td>{{ entry["text"] }}</td>
+                <td {% if entry["state"] == 1 %}class="todo-completed"{% endif %}>
+                    {{ entry["text"] }}
+                </td>
                 {% if entry["state"] == 0 %}
-                <td><i class="bi-x-circle-fill" style="color:red"></i></td>
+                <td>
+                    <img src="{{ url_for('static', filename='icons/x.svg') }}" alt="Incomplete" style="width:20px; height:20px; color:var(--danger)">
+                </td>
                 {% else %}
-                <td><i class="bi-check-circle-fill" style="color:green"></i></td>
+                <td>
+                    <img src="{{ url_for('static', filename='icons/check.svg') }}" alt="Complete" style="width:20px; height:20px; color:var(--success)">
+                </td>
                 {% endif %}
                 <td>{{ time_ago(entry["created_at"]) }}</td>
                 <td>
                     <div class="btn-group">
                         <a href="{{ url_for('todo.update', id=entry['id']) }}" class="btn btn-warning btn-sm">
-                            <i class="bi-wrench"></i> Modify</a>
+                            <img src="{{ url_for('static', filename='icons/edit.svg') }}" class="icon" alt="Edit"> Modify
+                        </a>
                         <a href="{{ url_for('todo.delete', id=entry['id']) }}" class="btn btn-danger btn-sm">
-                            <i class="bi-x"></i> Delete</a>
+                            <img src="{{ url_for('static', filename='icons/trash.svg') }}" class="icon" alt="Delete"> Delete
+                        </a>
                     </div>
                 </td>
             </tr>
             {% endfor %}
-        </tbody>
+        </tbody>    
     </table>
     {% endif %}
-</div>
 {% endblock %}
