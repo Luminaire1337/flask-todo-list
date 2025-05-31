@@ -1,0 +1,12 @@
+services:
+  flask-todo-list:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./database.db:/src/database.db
+    environment:
+      FLASK_DEBUG: False
+      APP_KEY: change_this_to_a_random_string
