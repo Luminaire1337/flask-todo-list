@@ -332,6 +332,61 @@ label {
   font-weight: 300;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+}
+
+.col-md-4 {
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Make columns stack on smaller screens */
+@media (max-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.card {
+  background-color: white;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  /* Allow long titles to wrap */
+  word-wrap: break-word;
+}
+.card-text {
+  font-size: 1rem;
+  color: var(--gray);
+  /* Allow long text to wrap */
+  word-wrap: break-word;
+}
+.card-subtitle {
+  font-size: 0.875rem;
+  color: var(--gray);
+  margin-bottom: 0.5rem;
+  /* Allow long subtitles to wrap */
+  word-wrap: break-word;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header-content {

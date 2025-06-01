@@ -23,18 +23,20 @@ def create_app(test_config: Optional[Dict[str, Any]] = None) -> Flask:
         DatabaseConnection.close_all()
         
     # Register utilities with the Jinja context
-    from app.utils import time_ago
+    from app.utils import time_ago, friendly_string_sub
     @app.context_processor
     def utility_processor() -> Dict[str, Any]:
         return {
             "time_ago": time_ago,
-            "now": datetime.now()
+            "now": datetime.now(),
+            "friendly_string_sub": friendly_string_sub 
         }
     
     # Register blueprints
-    from app.controllers import index_blueprint, todo_blueprint
+    from app.controllers import index_blueprint, todo_blueprint, review_blueprint
     app.register_blueprint(index_blueprint)
     app.register_blueprint(todo_blueprint)
+    app.register_blueprint(review_blueprint)
     
     # Register error handlers
     @app.errorhandler(404)

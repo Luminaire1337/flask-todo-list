@@ -28,7 +28,7 @@ class BaseModel:
             cursor.execute(query, list(data.values()))
             return cursor.lastrowid
 
-    def select_data(self, limit: int = 0, where: Optional[Dict[str, Any]] = None) -> List[Row]:
+    def select_data(self, limit: int = 0, where: Optional[Dict[str, Any]] = None, order_by: Optional[str] = None) -> List[Row]:
         """Select data from the table with optional limit and where clause."""
         query = f'SELECT * FROM {self.table_name}'
         params = []
@@ -41,7 +41,10 @@ class BaseModel:
             
             if conditions:
                 query += f" WHERE {' AND '.join(conditions)}"
-        
+
+        if order_by:
+            query += f' ORDER BY {order_by}'
+
         if limit > 0:
             query += f' LIMIT {limit}'
 

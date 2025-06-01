@@ -1,16 +1,17 @@
 from flask import Blueprint, render_template, request, Response, flash, redirect, url_for
-from app.models import ToDo, Action
+from app.models import ToDo, Action, Review
 from app.utils import csv_encode
 
 blueprint = Blueprint("index", __name__, url_prefix="/")
 
 # Constants
 DATA_LIMIT = 100
+REVIEW_LIMIT = 6
 
 @blueprint.get("/")
 def index():
     """Render the home page with a list of todos."""
-    return render_template("index.html", entries=ToDo().select_data(DATA_LIMIT))
+    return render_template("index.html", entries=ToDo().select_data(DATA_LIMIT), reviews=Review().select_data(limit=REVIEW_LIMIT, order_by="created_at DESC"))
 
 @blueprint.get("/export")
 def export():
